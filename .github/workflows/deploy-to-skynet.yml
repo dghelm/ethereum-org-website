@@ -25,9 +25,10 @@ jobs:
           GATSBY_GITHUB_TOKEN_READ_ONLY: ${{secrets.GATSBY_GITHUB_TOKEN_READ_ONLY}}
 
       - name: "Deploy to Skynet"
-        uses: SkynetLabs/deploy-to-skynet-action@v2
+        uses: SkynetLabs/deploy-to-skynet-action@update-nodejs-add-jwt
         with:
           upload-dir: public
           github-token: ${{ secrets.GITHUB_TOKEN }}
           registry-seed: ${{ secrets.SKYNET_REGISTRY_SEED || '' }}
           try-files: index.html /index.html
+          skynet-jwt: ${{ secrets.SKYNET_JWT }}
