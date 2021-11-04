@@ -30,5 +30,5 @@ jobs:
           upload-dir: static
           github-token: ${{ secrets.GITHUB_TOKEN }}
           registry-seed: ${{ secrets.SKYNET_REGISTRY_SEED || '' }}
-          try-files: index.html /index.html
+          # try-files: index.html /index.html
           skynet-jwt: ${{ secrets.SKYNET_JWT }}
