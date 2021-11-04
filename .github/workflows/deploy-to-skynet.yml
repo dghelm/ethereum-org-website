@@ -27,7 +27,7 @@ jobs:
       - name: "Deploy to Skynet"
         uses: SkynetLabs/deploy-to-skynet-action@update-nodejs-add-jwt
         with:
-          upload-dir: public
+          upload-dir: static
           github-token: ${{ secrets.GITHUB_TOKEN }}
           registry-seed: ${{ secrets.SKYNET_REGISTRY_SEED || '' }}
           try-files: index.html /index.html
