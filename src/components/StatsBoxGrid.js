@@ -9,7 +9,12 @@ import Tooltip from "./Tooltip"
 import Link from "./Link"
 import Icon from "./Icon"
 
-import { getData } from "../utils/cache"
+// import { getData } from "../utils/cache"
+
+import defiPulseAPI from "../lambda/defipulse"
+import etherscanAPI from "../lambda/etherscan"
+// import etherscanBlockAPI from "../lambda/etherscanBlock"
+import txsAPI from "../lambda/txs"
 
 const Value = styled.h3`
   position: absolute;
@@ -340,11 +345,14 @@ const StatsBoxGrid = () => {
 
     const fetchNodes = async () => {
       try {
-        const { result } = await getData(
-          process.env.NODE_ENV === "production"
-            ? "/.netlify/functions/etherscan"
-            : "http://localhost:9000/etherscan"
-        )
+        // const { result } = await getData(
+        //   process.env.NODE_ENV === "production"
+        //     ? "/.netlify/functions/etherscan"
+        //     : "http://localhost:9000/etherscan"
+        // )
+
+        const { result } = await etherscanAPI.handler()
+
         const data = result
           .map(({ UTCDate, TotalNodeCount }) => ({
             timestamp: new Date(UTCDate).getTime(),
@@ -369,11 +377,14 @@ const StatsBoxGrid = () => {
 
     const fetchTotalValueLocked = async () => {
       try {
-        const response = await getData(
-          process.env.NODE_ENV === "production"
-            ? "/.netlify/functions/defipulse"
-            : "http://localhost:9000/defipulse"
-        )
+        // const response = await getData(
+        //   process.env.NODE_ENV === "production"
+        //     ? "/.netlify/functions/defipulse"
+        //     : "http://localhost:9000/defipulse"
+        // )
+
+        const response = await defiPulseAPI.handler()
+
         const data = response
           .map(({ timestamp, tvlUSD }) => ({
             timestamp: parseInt(timestamp) * 1000,
@@ -398,11 +409,14 @@ const StatsBoxGrid = () => {
 
     const fetchTxCount = async () => {
       try {
-        const response = await getData(
-          process.env.NODE_ENV === "production"
-            ? "/.netlify/functions/txs"
-            : "http://localhost:9000/txs"
-        )
+        // const response = await getData(
+        //   process.env.NODE_ENV === "production"
+        //     ? "/.netlify/functions/txs"
+        //     : "http://localhost:9000/txs"
+        // )
+
+        const response = await txsAPI.handler()
+
         const data = response.result
           .map(({ unixTimeStamp, transactionCount }) => ({
             timestamp: parseInt(unixTimeStamp) * 1000, // unix milliseconds
