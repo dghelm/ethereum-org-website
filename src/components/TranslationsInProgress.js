@@ -5,6 +5,8 @@ import { FakeLinkExternal } from "./SharedStyledComponents"
 import Translation from "./Translation"
 import { CardItem } from "./SharedStyledComponents"
 
+import translationsAPI from "../lambda/translations"
+
 const LangContainer = styled.div`
   margin-bottom: 2rem;
   display: flex;
@@ -18,16 +20,18 @@ const TranslationsInProgress = () => {
   const [translationsInProgress, setTranslationsInProgress] = useState([])
 
   useEffect(() => {
-    axios
-      .get(
-        process.env.NODE_ENV === "production"
-          ? "/.netlify/functions/translations"
-          : "http://localhost:9000/translations"
-      )
+    // axios
+    //   .get(
+    //     process.env.NODE_ENV === "production"
+    //       ? "/.netlify/functions/translations"
+    //       : "http://localhost:9000/translations"
+    //   )
+    translationsAPI
+      .handler()
       .then((response) => {
         let languages = []
-        if (response.data && response.data.data) {
-          languages = response.data.data
+        if (response.body && response.body.data) {
+          languages = response.body.data
         }
         languages.sort((a, b) => a.name.localeCompare(b.name))
         setTranslationsInProgress(languages)

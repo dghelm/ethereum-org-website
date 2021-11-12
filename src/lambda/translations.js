@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-exports.handler = async function (event, context) {
+const handler = async () => {
   try {
     const baseURL = "https://api.crowdin.com/api/project/ethereum-org/status"
     const { CROWDIN_API_KEY } = process.env
@@ -24,3 +24,5 @@ exports.handler = async function (event, context) {
     }
   }
 }
+
+module.exports = { handler }

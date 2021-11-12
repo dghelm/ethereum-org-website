@@ -11,6 +11,8 @@ import { translateMessageId } from "../utils/translations"
 
 import { CardItem as Item } from "./SharedStyledComponents"
 
+import roadmapAPI from "../lambda/roadmap"
+
 const Section = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -66,16 +68,18 @@ const Roadmap = () => {
 
   // TODO update to pull PRs & issues separately
   useEffect(() => {
-    axios
-      .get(
-        process.env.NODE_ENV === "production"
-          ? "/.netlify/functions/roadmap"
-          : "http://localhost:9000/roadmap"
-      )
+    // axios
+    //   .get(
+    //     process.env.NODE_ENV === "production"
+    //       ? "/.netlify/functions/roadmap"
+    //       : "http://localhost:9000/roadmap"
+    //   )
+    roadmapAPI
+      .handler()
       .then((response) => {
         let issues = []
-        if (response.data && response.data.data) {
-          issues = response.data.data
+        if (response.body && response.body.data) {
+          issues = response.body.data
           const planned = issues
             .filter((issue) => {
               for (const label of issue.labels) {

@@ -3,7 +3,7 @@ const axios = require("axios")
 const handler = async () => {
   try {
     const response = await axios.get(
-      `https://data-api.defipulse.com/api/v1/defipulse/api/GetHistory?api-key=${process.env.DEFI_PULSE_API_KEY}&period=3m&length=1`
+      `https://data-api.defipulse.com/api/v1/defipulse/api/GetHistory?api-key=${process.env.GATSBY_DEFI_PULSE_API_KEY}&period=3m&length=1`
     )
     if (response.status < 200 || response.status >= 300) {
       return {

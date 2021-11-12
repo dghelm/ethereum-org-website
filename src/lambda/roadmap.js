@@ -1,6 +1,6 @@
 const axios = require("axios")
 
-exports.handler = async function (event, context) {
+const handler = async () => {
   try {
     const baseURL =
       "https://api.github.com/repos/ethereum/ethereum-org-website/issues?per_page=100&state=all"
@@ -17,6 +17,10 @@ exports.handler = async function (event, context) {
     }
 
     const data = await resp.data
+
+    console.log("roadmap data")
+    console.log(data)
+
     return {
       statusCode: 200,
       body: JSON.stringify({ data }),
@@ -29,3 +33,5 @@ exports.handler = async function (event, context) {
     }
   }
 }
+
+module.exports = { handler }
