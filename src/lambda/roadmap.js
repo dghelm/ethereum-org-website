@@ -4,7 +4,7 @@ const handler = async () => {
   try {
     const baseURL =
       "https://api.github.com/repos/ethereum/ethereum-org-website/issues?per_page=100&state=all"
-    const { GITHUB_TOKEN } = process.env
+    const { GATSBY_GITHUB_TOKEN } = process.env
 
     const resp = await axios.get(`${baseURL}`, {
       headers: {

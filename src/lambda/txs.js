@@ -9,7 +9,7 @@ const handler = async () => {
       .toISOString()
       .split("T")[0] // {daysToFetch} days ago
     const response = await axios.get(
-      `https://api.etherscan.io/api?module=stats&action=dailytx&startdate=${startDate}&enddate=${endDate}&sort=asc&apikey=${process.env.ETHERSCAN_API_KEY}`
+      `https://api.etherscan.io/api?module=stats&action=dailytx&startdate=${startDate}&enddate=${endDate}&sort=asc&apikey=${process.env.GATSBY_ETHERSCAN_API_KEY}`
     )
     if (response.status < 200 || response.status >= 300) {
       return { statusCode: response.status, body: response.statusText }
