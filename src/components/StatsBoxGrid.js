@@ -351,9 +351,9 @@ const StatsBoxGrid = () => {
         //     : "http://localhost:9000/etherscan"
         // )
 
-        const { result } = await etherscanAPI.handler()
+        const { body } = await etherscanAPI.handler()
 
-        const data = result
+        const data = body.result
           .map(({ UTCDate, TotalNodeCount }) => ({
             timestamp: new Date(UTCDate).getTime(),
             value: TotalNodeCount,
@@ -383,9 +383,9 @@ const StatsBoxGrid = () => {
         //     : "http://localhost:9000/defipulse"
         // )
 
-        const response = await defiPulseAPI.handler()
+        const { body } = await defiPulseAPI.handler()
 
-        const data = response
+        const data = body
           .map(({ timestamp, tvlUSD }) => ({
             timestamp: parseInt(timestamp) * 1000,
             value: tvlUSD,
@@ -415,9 +415,9 @@ const StatsBoxGrid = () => {
         //     : "http://localhost:9000/txs"
         // )
 
-        const response = await txsAPI.handler()
+        const { body } = await txsAPI.handler()
 
-        const data = response.result
+        const data = body.result
           .map(({ unixTimeStamp, transactionCount }) => ({
             timestamp: parseInt(unixTimeStamp) * 1000, // unix milliseconds
             value: transactionCount,
